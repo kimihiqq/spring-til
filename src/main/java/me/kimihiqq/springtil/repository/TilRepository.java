@@ -7,7 +7,7 @@ import org.springframework.data.jpa.repository.Query;
 import java.util.List;
 
 public interface TilRepository extends JpaRepository<Board, Long> {
-    @Query("SELECT distinct b FROM Board b JOIN FETCH b.comments")
+    @Query("SELECT distinct b FROM Board b LEFT JOIN FETCH b.comments")
     List<Board> findAllWithComments();
 
 }
