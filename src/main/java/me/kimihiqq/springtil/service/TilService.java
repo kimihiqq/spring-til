@@ -35,6 +35,7 @@ public class TilService {
         return tilRepository.save(request.toEntity(userName));
     }
 
+    @Transactional
     public List<Board> findAll() {
         return tilRepository.findAllWithComments();
     }
