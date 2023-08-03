@@ -36,7 +36,7 @@ public class TilService {
     }
 
     public List<Board> findAll() {
-        return tilRepository.findAll();
+        return tilRepository.findAllWithComments();
     }
 
     public Board findById(long id) {
