@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+  <meta charset="UTF-8">
+  <title>포스팅 리스트</title>
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300&family=Noto+Serif+KR:wght@200&display=swap" rel="stylesheet">
+
+
+  <style>
+    body {
+      background-color: #f8f9fa; /* Bootstrap's light gray */
+      color: #343a40; /* Bootstrap's dark gray */
+      font-family: 'Grandiflora One', cursive;
+    }
+    .btn-custom {
+      border: none;
+      color: #343a40;
+      background-color: #f8f9fa;
+      cursor: pointer;
+      transition: 0.3s;
+    }
+    .btn-custom:hover {
+      background-color: #e9ecef; /* Bootstrap's light gray */
+    }
+    .table-hover tbody tr:hover {
+      background-color: #f8f9fa; /* Bootstrap's light gray */
+      cursor: pointer;
+    }
+  </style>
+</head>
+<body>
+<div class="p-5 mb-5 text-center bg-light">
+  <h1 class="mb-3">TIL</h1>
+  <h4 class="mb-3">Today I Learned</h4>
+</div>
+
+<div class="container">
+  <div class="d-flex justify-content-center">
+    <button type="button" id="create-btn"
+            th:onclick="|location.href='@{/new-board}'|"
+            class="btn btn-outline-secondary btn-sm mb-3">포스팅</button>
+  </div>
+  <div class="table-responsive">
+    <table class="table table-bordered table-hover">
+      <thead>
+      <tr>
+        <th scope="col">제목</th>
+        <th scope="col">글쓴이</th>
+        <th scope="col">작성시간</th>
+      </tr>
+      </thead>
+      <tbody>
+      <tr th:each="item : ${boards}" th:onclick="|window.location='@{/boards/{id}(id=${item.id})}'|">
+
+      <td th:text="${item.title}"></td>
+        <td th:text="${item.author}"></td>
+        <td th:text="${#temporals.format(item.createdAt, 'yyyy-MM-dd HH:mm')}"></td>
+      </tr>
+      </tbody>
+    </table>
+  </div>
+  <div class="d-flex justify-content-center mt-3">
+    <button type="button" class="btn btn-outline-secondary" onclick="location.href='/logout'">Log IN/OUT</button>
+  </div>
+</div>
+
+<script src="/js/token.js"></script>
+<script src="/js/board.js"></script>
+</body>
+</html>
