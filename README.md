@@ -27,7 +27,7 @@ private Board board;
 
 - **cascade = CascadeType.ALL**: 이 옵션을 통해 Board 엔티티가 수행하는 모든 데이터베이스 연산(CRUD)이 관련된 Comment 엔티티에게도 적용되게끔 했습니다. 이를 통해 데이터 무결성을 유지하고자 했습니다.
 - **orphanRemoval = true:** 해당 옵션을 통해  Board에서 Comment를 제거하는 경우, 즉  Comment 엔티티가 더 이상 연결되지 않은 경우  자동으로 데이터베이스에서 제거되도록 설정했습니다.
-- **fetch = FetchType.LAZY:** Board 엔티티를 로드할 때 Comment 엔티티는 로드되지 않고, Comment 엔티티를 직접 사용하는 시점에서 로드됩니다. 모든 관련 엔티티를 한 번에 로드하지 않으므로 성능상의 이점이 있지만, `N+1 문제`가 발생할 우려가 있기에, 다음과 같이 `JOIN FETCH`를 사용하였습니다. 이를 통해 성능을 최적화하면서도 필요한 데이터만을 로드할 수 있게끔 하였습니다.
+- **fetch = FetchType.LAZY:** Board 엔티티를 로드할 때 Comment 엔티티는 로드되지 않고, Comment 엔티티를 직접 사용하는 시점에서 로드됩니다. 모든 관련 엔티티를 한 번에 로드하지 않으므로 성능상의 이점이 있지만, `N+1 문제`가 발생할 우려가 있기에, 다음과 같이 `JOIN FETCH`를 사용하였습니다. 이를 통해 `N+1 문제`를 해결하면서 필요한 데이터만을 로드할 수 있게끔 하였습니다.
  
 ```java
 @Query("SELECT distinct b FROM Board b LEFT JOIN FETCH b.comments")
